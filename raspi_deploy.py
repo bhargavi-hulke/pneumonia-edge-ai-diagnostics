@@ -1,10 +1,9 @@
 import numpy as np
 import cv2
 import time
-import tensorflow as tf 
 import pydicom
 import os
-#import tflite_runtime.interpreter as tflite  ----if running in raspberry pi it will be this and not simple tensorflow 
+import tflite_runtime.interpreter as tflite ## ----when running in raspberry pi it will be this and not simple tensorflow 
 
 MODEL_PATH = "pneumonia_model_quantized.tflite"
 
