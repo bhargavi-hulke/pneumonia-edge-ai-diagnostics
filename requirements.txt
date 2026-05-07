@@ -1,0 +1,8 @@
+opencv-python
+numpy
+pydicom
+pillow
+tensorflow 
+# Or if using the older runtime:
+tflite-runtime
+time/OS
