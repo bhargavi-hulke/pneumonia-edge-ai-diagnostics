@@ -1,7 +1,7 @@
 # Edge-AI Pneumonia Diagnostic Engine
 An optimized edge-AI diagnostic system for pneumonia detection in rural clinics, featuring 16-bit DICOM signal processing and INT8 quantized TFLite inference.An integrated deep learning pipeline for pneumonia detection from chest X-rays, designed specifically for deployment on **Raspberry Pi (ARM architecture)**.
 
-**Why I built this**: >  I actually built this project to see if I could take a complex deep-learning model and make it actually work on a low-power device like a Raspberry Pi. The goal was really simple - to create something that could potentially help in rural clinics where expensive diagnostic hardware isn't readily available. It was a huge learning curve. Especially dealing with messy real-world data and "Moiré" noise. But, it really showed me the power of combining Signal Processing with AI.
+**Why I built this**: >  I actually built this project to see if I could take a complex deep-learning model and make it really work on a low-power device like a Raspberry Pi. The goal was really simple - to create something that could potentially help in rural clinics where expensive diagnostic hardware isn't readily available. It was a huge learning curve. Especially dealing with messy real-world data and "Moiré" noise. But, it really showed me the power of combining Signal Processing with AI.
 
 ## 🛠 System Architecture
 The project implements a multi-stage **Digital Signal Processing (DSP)** pipeline prior to inference to ensure high signal integrity:
