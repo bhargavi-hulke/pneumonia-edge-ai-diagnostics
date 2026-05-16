@@ -13,12 +13,11 @@ The project implements a multi-stage **Digital Signal Processing (DSP)** pipelin
 3.  **Contrast Enhancement:** CLAHE (Contrast Limited Adaptive Histogram Equalization) to maximize the Signal-to-Noise Ratio (SNR) of pulmonary opacities.
 4.  **Quantized Inference:** Executing an INT8-quantized TFLite model to minimize CPU instruction cycles and memory footprint.
 
-###⚙️How the System Works (The 4-Stage Pipeline)
+### ⚙️How the System Works (The 4-Stage Pipeline)
 
 ## 1. Image Loading, Normalization & Pre-processing (src/data_labelling.py)
 
 The Problem: Medical X-rays come in different formats. Some are high-quality hospital files (.dcm), while others are standard images (.jpg).The Solution: This stage reads both formats and rescales all pixel values to a standard range ($0$ to $255$) so the system treats every image equally.Before the AI looks at the X-ray, we clean the image using two main steps:
-
       Noise Removal: apply a Median Blur filter to remove random dots and camera sensor noise           while keeping the edges of the lungs sharp.
       Contrast Boost: use CLAHE (Adaptive Histogram Equalization) to brighten up hidden details.        This makes faint, cloudy patterns of pneumonia stand out clearly from the background.
       
