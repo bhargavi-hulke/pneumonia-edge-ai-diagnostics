@@ -84,55 +84,10 @@ def run_mass(raw_folder, processed_folder):
             else:
                 print(f"Skipped {filename}: {status}")
 
-
-def process_zip(zip_filepath, processed_folder, limit=None):
-    # Ensuring the output folder exists
-    os.makedirs(processed_folder, exist_ok=True)
-    
-    temp_dcm_path = "temp_processing_file.dcm"
-    print(f"Opening Vault: {zip_filepath}...")
-    
-    with zipfile.ZipFile(zip_filepath, 'r') as archive:
-        all_files = archive.namelist()
-        dcm_files = [f for f in all_files if f.lower().endswith('.dcm')] #making sure there .dcm files inside the zipfile
-        
-        print(f"Found {len(dcm_files)} DICOMs inside. Starting Zip extraction...")
-        
-        files_to_process = dcm_files[:limit] if limit else dcm_files
-
-        for file_in_zip in files_to_process:
-            print(f"Extracting & Processing Zip File: {file_in_zip}...")
-            
-            # Extract just ONE file temporarily
-            with open(temp_dcm_path, "wb") as f_out:
-                f_out.write(archive.read(file_in_zip))
-            
-            # Run the factory on the temp file
-            signal, status = process_image(temp_dcm_path)
-            
-            if signal is not None:
-                # Save the final clean image
-                base_name = os.path.basename(file_in_zip) 
-                new_filename = base_name.replace('.dcm', '.jpg')
-                save_path = os.path.join(processed_folder, new_filename)
-                
-                save_signal = (signal * 255).astype(np.uint8)
-                cv2.imwrite(save_path, save_signal)
-            else:
-                print(f"Skipped {file_in_zip}: {status}")
-                
-            # delete the heavy temporary DICOM to save disk space and optimise the space 
-            if os.path.exists(temp_dcm_path):
-                os.remove(temp_dcm_path)
-
-
-
 #path setup
 PROCESSED_DIR = "C:/work/projects/Signal processing - Pneumonia classification/processed data"
 
 RAW_DIR = "C:/work/projects/Signal processing - Pneumonia classification/raw data/jpegs"
-
-ZIP_FILE_PATH = "C:/work/projects/Signal processing - Pneumonia classification/raw data/my_xray_dataset.zip"
 
 print("--- Starting Pipelines ---")
 
