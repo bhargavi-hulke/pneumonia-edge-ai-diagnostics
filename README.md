@@ -13,23 +13,23 @@ The project implements a multi-stage **Digital Signal Processing (DSP)** pipelin
 3.  **Contrast Enhancement:** CLAHE (Contrast Limited Adaptive Histogram Equalization) to maximize the Signal-to-Noise Ratio (SNR) of pulmonary opacities.
 4.  **Quantized Inference:** Executing an INT8-quantized TFLite model to minimize CPU instruction cycles and memory footprint.
 
-### ⚙️How the System Works (The 4-Stage Pipeline)
+## ⚙️How the System Works (The 4-Stage Pipeline)
 
-## 1. Image Loading, Normalization & Pre-processing (src/data_labelling.py)
+### 1. Image Loading, Normalization & Pre-processing (src/data_labelling.py)
 
 The Problem: Medical X-rays come in different formats. Some are high-quality hospital files (.dcm), while others are standard images (.jpg).The Solution: This stage reads both formats and rescales all pixel values to a standard range ($0$ to $255$) so the system treats every image equally.Before the AI looks at the X-ray, we clean the image using two main steps:
       Noise Removal: apply a Median Blur filter to remove random dots and camera sensor noise           while keeping the edges of the lungs sharp.
       Contrast Boost: use CLAHE (Adaptive Histogram Equalization) to brighten up hidden details.        This makes faint, cloudy patterns of pneumonia stand out clearly from the background.
       
-## 2. AI Training (src/train_model.py)
+### 2. AI Training (src/train_model.py)
 
 The Brain: I built and trained a Convolutional Neural Network (CNN) using TensorFlow.
 The Learning Process: The AI looked at thousands of labeled X-rays (Healthy vs. Pneumonia). Using the Adam Optimizer, it automatically learned which visual patterns indicate an infection.
 
-## 3. Model Compression & Optimization (src/quantize_model.py)
+### 3. Model Compression & Optimization (src/quantize_model.py)
 
 The Problem: Standard AI models are too large and slow for a small Raspberry Pi CPU.The Solution: We used INT8 Quantization to convert the model's heavy math from 32-bit floating numbers into simple 8-bit integers. This shrank the model file size by 75% (from ~100MB to ~25MB), allowing it to run in milliseconds on edge hardware.
-## 4.Final Live Deployment (src/5_raspi_deploy.py)
+### 4.Final Live Deployment (src/5_raspi_deploy.py)
 
 This is the main application file that ties everything together on the Raspberry Pi. It processes the incoming X-ray, runs the optimized AI model, and prints a clear safety alert.
 
